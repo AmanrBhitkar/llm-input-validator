@@ -127,7 +127,7 @@ All rules are expressed at a <b>high level in the prompt</b> and interpreted ent
 <h3>Clone the Repository</h3>
 
 <pre>
-git clone https://github.com/&lt;your-username&gt;/llm-input-validator.git
+git clone https://github.com/&lt;AmanrBhitkar&gt;/llm-input-validator.git
 cd llm-input-validator
 </pre>
 
