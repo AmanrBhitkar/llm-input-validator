@@ -2,6 +2,7 @@ import json
 import os
 import time
 from groq import Groq
+import sys
 
 MODEL = "llama-3.1-8b-instant"
 MAX_RETRIES = 2
@@ -54,14 +55,12 @@ def validate_user(user_data):
     raise RuntimeError(f"LLM failed to return valid structured output: {last_error}")
 
 if __name__ == "__main__":
-    # Temporary test input
-    user_data = {
-        "name": "",
-        "email": "user@gmail",
-        "age": 16,
-        "country": "India",
-        "phone": "99999"
-    }
+    if len(sys.argv) != 2:
+        print("Usage: python validate_user.py <input_json_file>")
+        sys.exit(1)
+
+    with open(sys.argv[1], "r") as f:
+        user_data = json.load(f)
 
     result = validate_user(user_data)
-    print(json.dumps(result, indent=2))
+    print(json.dumps(result))

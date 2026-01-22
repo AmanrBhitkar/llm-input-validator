@@ -1,0 +1,22 @@
+description: LLM validator output contract tests
+
+# Required by promptfoo
+prompts:
+  - "placeholder prompt"
+
+# Required by promptfoo (will NOT be called because of --model-outputs)
+providers:
+  - openai:chat:gpt-4.1
+
+tests:
+  - description: Invalid input should be rejected
+    assert:
+      - type: equals
+        path: $.is_valid
+        value: false
+
+  - description: Valid input should be accepted
+    assert:
+      - type: equals
+        path: $.is_valid
+        value: true

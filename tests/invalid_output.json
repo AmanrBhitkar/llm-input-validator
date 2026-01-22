@@ -1,0 +1,1 @@
+{"is_valid": false, "errors": ["name is required", "email is not a valid email address", "phone number is not in E.164 format", "country must be a valid ISO-2 country code"], "warnings": ["age is below recommended minimum"]}
