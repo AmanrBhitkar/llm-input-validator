@@ -1,3 +1,18 @@
+<h1 align="center">🔍 LLM-Based Input Validator</h1>
+
+<p align="center">
+  <b>LLM-powered user profile validation with strict schema enforcement and automated evaluations</b><br>
+  <i>Tech Stack: Python · Large Language Models · Prompt Engineering · Promptfoo</i><br>
+  <i>Context: AI/ML Internship Assignment</i>
+</p>
+
+<hr/>
+
+
+
+
+
+
 🔍 LLM-Based Input Validator
 
 LLM-powered user profile validation with strict schema enforcement and automated evaluations
