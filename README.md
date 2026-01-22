@@ -1,57 +1,55 @@
 <h1 align="center">🔍 LLM-Based Input Validator</h1>
 
 <p align="center">
-  <b>LLM-powered user profile validation with strict schema enforcement and automated evaluations</b><br>
-  <i>Tech Stack: Python · Large Language Models · Prompt Engineering · Promptfoo</i><br>
+  <b>LLM-powered user profile validation with strict schema enforcement and automated evaluations</b><br/>
+  <i>Tech Stack: Python · Large Language Models · Prompt Engineering · Promptfoo</i><br/>
   <i>Context: AI/ML Internship Assignment</i>
 </p>
 
 <hr/>
 
+<h2>1. Overview</h2>
 
+<p>
+This project implements a <b>Large Language Model (LLM)–based input validation system</b> that validates
+user profile data using <b>prompt engineering only</b>.
+</p>
 
-
-
-
-🔍 LLM-Based Input Validator
-
-LLM-powered user profile validation with strict schema enforcement and automated evaluations
-
-Tech Stack: Python · Large Language Models · Prompt Engineering · Promptfoo
-Context: AI/ML Internship Assignment
-
-1. Overview
-
-This project implements a Large Language Model (LLM)–based input validation system that validates user profile data using prompt engineering only.
-
+<p>
 All validation logic is delegated entirely to an LLM:
+</p>
 
-❌ No regex
+<ul>
+  <li>❌ No regex</li>
+  <li>❌ No traditional validation libraries</li>
+  <li>❌ No hardcoded rules</li>
+</ul>
 
-❌ No traditional validation libraries
+<p>
+The system enforces <b>strict structured JSON output</b>, includes <b>retry logic</b>, and supports
+<b>automated evaluations</b>.
+</p>
 
-❌ No hardcoded rules
+<hr/>
 
-The system enforces strict structured JSON output, includes retry logic, and supports automated evaluations.
+<h2>2. Key Features</h2>
 
-2. Key Features
+<ul>
+  <li>✅ LLM-only validation logic</li>
+  <li>✅ Prompt-engineered constraints (E.164, ISO-2, email validity, etc.)</li>
+  <li>✅ Strict output schema enforcement</li>
+  <li>✅ Automatic retries for malformed LLM responses</li>
+  <li>✅ Automated evaluations using Promptfoo</li>
+  <li>✅ Secure API key handling via environment variables</li>
+</ul>
 
-✅ LLM-only validation logic
+<hr/>
 
-✅ Prompt-engineered constraints (E.164, ISO-2, email validity, etc.)
+<h2>3. Input Format</h2>
 
-✅ Strict output schema enforcement
+<p>The validator accepts a JSON file with the following structure:</p>
 
-✅ Automatic retries for malformed LLM responses
-
-✅ Automated evaluations using Promptfoo
-
-✅ Secure API key handling via environment variables
-
-3. Input Format
-
-The validator accepts a JSON file with the following structure:
-
+<pre>
 {
   "name": "string | null",
   "email": "string | null",
@@ -59,106 +57,139 @@ The validator accepts a JSON file with the following structure:
   "country": "string | null",
   "phone": "string | null"
 }
+</pre>
 
-Input Rules
+<h3>Input Rules</h3>
 
-Missing fields are ignored
+<ul>
+  <li>Missing fields are ignored</li>
+  <li>No data is inferred or fabricated</li>
+  <li>Validation applies only to provided fields</li>
+</ul>
 
-No data is inferred or fabricated
+<hr/>
 
-Validation applies only to provided fields
+<h2>4. Output Format (Strict)</h2>
 
-4. Output Format (Strict)
+<p>The validator <b>always</b> returns output in the following schema:</p>
 
-The validator always returns output in the following schema:
-
+<pre>
 {
   "is_valid": true,
   "errors": [],
   "warnings": []
 }
+</pre>
 
-Field Description
+<h3>Field Description</h3>
 
-is_valid → boolean
+<ul>
+  <li><b>is_valid</b> → boolean</li>
+  <li><b>errors</b> → list of strings</li>
+  <li><b>warnings</b> → list of strings</li>
+</ul>
 
-errors → list of strings
+<p>
+Any malformed output from the LLM is <b>automatically retried</b> until it conforms to this schema.
+</p>
 
-warnings → list of strings
+<hr/>
 
-Any malformed output from the LLM is automatically retried until it conforms to this schema.
+<h2>5. Validation Rules (High-Level)</h2>
 
-5. Validation Rules (High-Level)
-Errors
+<h3>Errors</h3>
 
-Name must be present and non-empty
+<ul>
+  <li>Name must be present and non-empty</li>
+  <li>Email must be a valid email address</li>
+  <li>Age must be a positive number</li>
+  <li>Country must be a valid ISO-2 country code (e.g. IN, US)</li>
+  <li>Phone number must be present and in E.164 format</li>
+</ul>
 
-Email must be a valid email address
+<h3>Warnings</h3>
 
-Age must be a positive number
+<ul>
+  <li>Age below 18</li>
+  <li>Name shorter than 3 characters</li>
+  <li>Disposable or temporary email address</li>
+  <li>Phone country code does not align with country</li>
+</ul>
 
-Country must be a valid ISO-2 country code (e.g. IN, US)
+<p>
+All rules are expressed at a <b>high level in the prompt</b> and interpreted entirely by the LLM.
+</p>
 
-Phone number must be present and in E.164 format
+<hr/>
 
-Warnings
+<h2>6. Setup Instructions</h2>
 
-Age below 18
+<h3>Clone the Repository</h3>
 
-Name shorter than 3 characters
-
-Disposable or temporary email address
-
-Phone country code does not align with country
-
-Rule Interpretation
-
-All rules are expressed at a high level in the prompt and interpreted entirely by the LLM.
-
-6. Setup Instructions
-Clone the Repository
-git clone https://github.com/<your-username>/llm-input-validator.git
+<pre>
+git clone https://github.com/&lt;your-username&gt;/llm-input-validator.git
 cd llm-input-validator
+</pre>
 
-Create and Activate Virtual Environment
+<h3>Create and Activate Virtual Environment</h3>
+
+<pre>
 python -m venv venv
+</pre>
 
+<p><b>macOS / Linux</b></p>
 
-macOS / Linux
-
+<pre>
 source venv/bin/activate
+</pre>
 
+<p><b>Windows</b></p>
 
-Windows
-
+<pre>
 venv\Scripts\activate
+</pre>
 
-Install Dependencies
+<h3>Install Dependencies</h3>
+
+<pre>
 pip install -r requirements.txt
+</pre>
 
-7. API Key Configuration
+<hr/>
 
-Create a .env file locally (do not commit it):
+<h2>7. API Key Configuration</h2>
 
+<p>Create a <code>.env</code> file locally (do <b>not</b> commit it):</p>
+
+<pre>
 OPENAI_API_KEY=your_openai_api_key_here
+</pre>
 
+<p><b>OR</b></p>
 
-OR
-
+<pre>
 GROQ_API_KEY=your_groq_api_key_here
+</pre>
 
-Security Notes
+<h3>Security Notes</h3>
 
-API keys are intentionally not committed
+<ul>
+  <li>API keys are intentionally not committed</li>
+  <li>Evaluators must provide their own keys</li>
+  <li>Environment-variable–based secrets follow production best practices</li>
+</ul>
 
-Evaluators must provide their own keys
+<hr/>
 
-Environment-variable–based secrets follow production best practices
+<h2>8. Running the Validator</h2>
 
-8. Running the Validator
+<pre>
 python validate_user.py tests/invalid.json
+</pre>
 
-Example Output
+<h3>Example Output</h3>
+
+<pre>
 {
   "is_valid": false,
   "errors": [
@@ -169,28 +200,42 @@ Example Output
     "age is below recommended minimum"
   ]
 }
+</pre>
 
-9. Automated Evaluations (Promptfoo)
+<hr/>
 
-This project includes Promptfoo evaluations to verify output correctness and schema discipline.
+<h2>9. Automated Evaluations (Promptfoo)</h2>
 
-Install Promptfoo
+<p>
+This project includes <b>Promptfoo evaluations</b> to verify output correctness and schema discipline.
+</p>
+
+<h3>Install Promptfoo</h3>
+
+<pre>
 npm install -g promptfoo
+</pre>
 
-Run Evaluations
+<h3>Run Evaluations</h3>
+
+<pre>
 promptfoo eval -c evals/promptfoo.yaml
+</pre>
 
-Evaluation Notes
+<h3>Evaluation Notes</h3>
 
-Promptfoo requires a live LLM provider
+<ul>
+  <li>Promptfoo requires a live LLM provider</li>
+  <li>Accounts with zero API credit may encounter 429 rate-limit errors</li>
+  <li>This does not indicate incorrect configuration</li>
+  <li>Evaluations run reliably on Linux and CI environments</li>
+</ul>
 
-Accounts with zero API credit may encounter 429 rate-limit errors
+<hr/>
 
-This does not indicate incorrect configuration
+<h2>10. Project Structure</h2>
 
-Evaluations run reliably on Linux and CI environments
-
-10. Project Structure
+<pre>
 llm-input-validator/
 ├── validate_user.py
 ├── prompts/
@@ -203,15 +248,16 @@ llm-input-validator/
 ├── requirements.txt
 ├── .env.example
 └── README.md
+</pre>
 
-11. Design Decisions
+<hr/>
 
-LLM-driven validation avoids brittle rule duplication
+<h2>11. Design Decisions</h2>
 
-Prompt engineering captures real-world standards
-
-Schema enforcement with retries ensures deterministic outputs
-
-Promptfoo evaluations provide automated correctness checks
-
-Secure secret handling mirrors real-world production systems
+<ul>
+  <li>LLM-driven validation avoids brittle rule duplication</li>
+  <li>Prompt engineering captures real-world standards</li>
+  <li>Schema enforcement with retries ensures deterministic outputs</li>
+  <li>Promptfoo evaluations provide automated correctness checks</li>
+  <li>Secure secret handling mirrors real-world production systems</li>
+</ul>
